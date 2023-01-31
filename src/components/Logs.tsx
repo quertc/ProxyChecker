@@ -1,12 +1,12 @@
-import React from 'react';
+import { useRef, useEffect } from 'react';
 import { Card, Divider, Text } from '@mantine/core';
 import { useLogs } from '../hooks/useLogs';
 import Log from './Log';
 
 function Logs() {
   const { logs, isError } = useLogs();
-  const cardRef = React.useRef<HTMLDivElement>(null);
-  const bottomRef = React.useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
     if (cardRef.current && bottomRef.current) {
@@ -17,7 +17,7 @@ function Logs() {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     scrollToBottom();
   }, [logs]);
 
