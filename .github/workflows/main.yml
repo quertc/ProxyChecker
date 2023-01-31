@@ -37,7 +37,7 @@ jobs:
           cache: 'npm'
 
       - name: Install app dependencies and build web
-        run: npm
+        run: npm i
 
       - name: Build the app
         uses: tauri-apps/tauri-action@v0
