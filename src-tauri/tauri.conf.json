@@ -28,7 +28,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "proxy-checker",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
