@@ -1,0 +1,17 @@
+[package]
+name = "checker-library"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+serde_json.workspace = true
+serde.workspace = true
+tokio.workspace = true
+rayon.workspace = true
+futures = "0.3.25"
+itertools = "0.10.5"
+regex = "1.7.1"
+reqwest = { version = "0.11.14", features = ["json", "socks"] }
+thiserror = "1.0.38"
