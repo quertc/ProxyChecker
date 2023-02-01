@@ -37,7 +37,6 @@ function SettingsModal() {
         shadow="md"
         overlayColor={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
         overlayOpacity={0.6}
-        // Maybe it doesn't affect anything
         overlayBlur={3}
       >
         <PatternInput />

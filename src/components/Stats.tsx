@@ -24,8 +24,7 @@ function Stats() {
       <Text size="xs" transform="uppercase" weight={700} color="dimmed">
         Working proxies
       </Text>
-      {/* `weight` property is unnecessary */}
-      <Text size="lg" weight={500}>
+      <Text size="lg">
         {work}
         {' / '}
         {total}
