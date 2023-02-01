@@ -10,7 +10,7 @@ interface ShellProps {
 
 function Shell({ children }: ShellProps) {
   const colorSchemeContext = useMantineColorScheme();
-  const appName = `${PackageJson.name} v${PackageJson.version}`;
+  const appName = `ProxyChecker v${PackageJson.version}`;
 
   return (
     <AppShell
@@ -18,7 +18,7 @@ function Shell({ children }: ShellProps) {
       header={(
         <Header height={60}>
           <Group sx={{ height: '100%' }} px={20} position="apart">
-            <Button component="a" href="https://github.com/" target="_blank" variant="default" leftIcon={<IconBrandGithub size={18} />}>
+            <Button component="a" href="https://github.com/quertc/ProxyChecker" target="_blank" variant="default" leftIcon={<IconBrandGithub size={18} />}>
               {appName}
             </Button>
             <ActionIcon
