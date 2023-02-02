@@ -1,8 +1,8 @@
 import { useMantineColorScheme, AppShell, Header, Group, Button, ActionIcon } from '@mantine/core';
 import { IconBrandGithub, IconSun, IconMoonStars } from '@tabler/icons-react';
 import PackageJson from '../../package.json';
-import DarkBg from '../assets/dark-bg.webp';
-import LightBg from '../assets/light-bg.webp';
+import DarkBg from '../assets/dark-bg.jpg';
+import LightBg from '../assets/light-bg.jpg';
 
 interface ShellProps {
   children: React.ReactNode;
