@@ -22,6 +22,8 @@ You can download the latest version of the application on Windows, MacOS, or Ubu
 
 Very rarely, for some unknown reason, Windows Defender may block an application by seeing a virus in it. This is obviously a false positive (there are several [issues](https://github.com/tauri-apps/tauri/issues) in the tauri repository from other people on this random problem). If this happens, just ignore it and add it to Windows Defender exceptions, or run the application in an isolated environment if you want.
 
+If anyone knows how to get rid of this, create a new issue. Thanks!
+
 ## TODO
 
 - Improve error handling on the frontend
