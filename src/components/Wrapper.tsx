@@ -39,15 +39,7 @@ function Wrapper({ children }: WrapperProps) {
 
   return (
     <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-      <MantineProvider
-        theme={{
-          colorScheme,
-          fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji',
-          fontFamilyMonospace: 'ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace',
-        }}
-        withGlobalStyles
-        withNormalizeCSS
-      >
+      <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
         {children}
       </MantineProvider>
     </ColorSchemeProvider>
