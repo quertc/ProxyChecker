@@ -18,6 +18,10 @@ A lightweight, customizable and user-friendly proxy checker built with [Tauri](h
 
 You can download the latest version of the application on Windows, MacOS, or Ubuntu 20.04 in the [**releases**](https://github.com/quertc/ProxyChecker/releases) section of this repository.
 
+## Note
+
+Very rarely, for some unknown reason, Windows Defender may block an application by seeing a virus in it. This is obviously a false positive (there are several [issues](https://github.com/tauri-apps/tauri/issues) in the tauri repository from other people on this random problem). If this happens, just ignore it and add it to Windows Defender exceptions, or run the application in an isolated environment if you want.
+
 ## TODO
 
 - Improve error handling on the frontend
