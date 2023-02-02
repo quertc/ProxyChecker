@@ -3,7 +3,7 @@ import { Button } from '@mantine/core';
 import { invoke } from '@tauri-apps/api/tauri';
 import { ProxiesContext } from '../context/ProxiesContext';
 
-function ActionButton() {
+function CheckButton() {
   const { url, timeout, path, total, isCheckLoading, isDownloadLoading, setWork, setLogs, setIsDownloadLoading } = useContext(ProxiesContext);
 
   // Move this to the hook (for other components too)
@@ -34,4 +34,4 @@ function ActionButton() {
   );
 }
 
-export default ActionButton;
+export default CheckButton;
