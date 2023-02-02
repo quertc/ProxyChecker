@@ -24,6 +24,7 @@ You can download the latest version of the application on Windows, MacOS, or Ubu
 - Handle errors when unwrapping mutexes
 - Improve performance and optimize the app
 - Add a selection of different delimiters in the file (not just \n)
+- Add the ability to drag and drop a file
 - Refactor small things (comments)
 
 ## Recommended IDE Setup for development
