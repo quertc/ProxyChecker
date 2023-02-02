@@ -18,6 +18,9 @@
       "fs": {
         "readFile": true,
         "writeFile": true
+      },
+      "shell": {
+        "open": "^https://github.com/"
       }
     },
     "bundle": {
