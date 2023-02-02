@@ -4,7 +4,7 @@ import { invoke } from '@tauri-apps/api/tauri';
 import { ProxiesContext } from '../context/ProxiesContext';
 
 function ActionButton() {
-  const { url, timeout, path, total, isCheckLoading, setWork, setLogs, setIsDownloadLoading } = useContext(ProxiesContext);
+  const { url, timeout, path, total, isCheckLoading, isDownloadLoading, setWork, setLogs, setIsDownloadLoading } = useContext(ProxiesContext);
 
   // Move this to the hook (for other components too)
   async function checkProxies() {
@@ -22,7 +22,7 @@ function ActionButton() {
 
   return (
     <Button
-      disabled={(!path || !total) && !isCheckLoading}
+      disabled={((!path || !total) && !isCheckLoading) || isDownloadLoading}
       loading={isCheckLoading}
       variant="gradient"
       gradient={{ from: 'indigo', to: 'cyan' }}
