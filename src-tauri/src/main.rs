@@ -56,12 +56,13 @@ async fn check_proxies_command(
     success: tauri::State<'_, WorkingProxies>,
     url: String,
     timeout: u64,
+    threads: usize,
 ) -> Result<(), ()> {
     let proxies = state.0.lock().unwrap().to_vec();
 
     let result = check_proxies(proxies, url, timeout, move |status, message| {
         emit_new_log_event(&window, status, message);
-    })
+    }, threads)
     .await;
 
     *success.0.lock().unwrap() = result;
@@ -88,8 +89,7 @@ async fn download_proxies_command(success: tauri::State<'_, WorkingProxies>) -> 
     Ok(proxies)
 }
 
-#[tokio::main]
-async fn main() {
+fn main() {
     env_logger::init();
     // Half of the threads are used to reduce the CPU load
     let num_threads = cmp::max(1, num_cpus::get() / 2);
