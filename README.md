@@ -33,6 +33,7 @@ If anyone knows how to get rid of this, create a new issue. Thanks!
 - Improve performance and optimize the app
 - Add a selection of different delimiters in the file (not just \n)
 - Add the ability to drag and drop a file
+- Add wallpaper saving to cache
 - Refactor small things (comments)
 
 ## Recommended IDE Setup for development
