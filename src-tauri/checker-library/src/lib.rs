@@ -1,11 +1,11 @@
 mod error;
 
 use error::{ProxyCheckerError, Result};
-use futures::stream::FuturesUnordered;
 use itertools::Itertools;
 use rayon::prelude::*;
 use regex::Regex;
 use serde::Serialize;
+use tokio::sync::Semaphore;
 
 use std::fmt;
 use std::sync::{Arc, Mutex};
@@ -197,38 +197,42 @@ pub async fn check_proxies<F>(
     url: String,
     timeout: u64,
     event_handler: F,
+    threads: usize,
 ) -> Vec<String>
 where
     F: Fn(EventStatus, String) + Send + 'static,
 {
     let event_handler = Arc::new(Mutex::new(event_handler));
-    let tasks = proxies
-        .into_iter()
-        .map(|proxy| {
-            let proxy_string = proxy.to_string();
-            let url = url.clone();
-            let event_handler = event_handler.clone();
+    let sem = Arc::new(Semaphore::new(threads));
+    let mut tasks = vec![];
 
-            tokio::spawn(async move {
-                match proxy.send_request(&url, timeout).await {
-                    Ok(proxy) => {
-                        event_handler.lock().unwrap()(
-                            EventStatus::Success,
-                            format!("Success: {proxy_string} ({} ms)", proxy.latancy.as_millis()),
-                        );
-                        Ok(proxy)
-                    }
-                    Err(err) => {
-                        event_handler.lock().unwrap()(
-                            EventStatus::Error,
-                            format!("Error: {proxy_string} ({err})"),
-                        );
-                        Err(err)
-                    }
+    for proxy in proxies {
+        let permit = Arc::clone(&sem).acquire_owned().await;
+        let proxy_string = proxy.to_string();
+        let url = url.clone();
+        let event_handler = event_handler.clone();
+
+        tasks.push(tokio::spawn(async move {
+            let _permit = permit;
+
+            match proxy.send_request(&url, timeout).await {
+                Ok(proxy) => {
+                    event_handler.lock().unwrap()(
+                        EventStatus::Success,
+                        format!("Success: {proxy_string} ({} ms)", proxy.latancy.as_millis()),
+                    );
+                    Ok(proxy)
                 }
-            })
-        })
-        .collect::<FuturesUnordered<_>>();
+                Err(err) => {
+                    event_handler.lock().unwrap()(
+                        EventStatus::Error,
+                        format!("Error: {proxy_string} ({err})"),
+                    );
+                    Err(err)
+                }
+            }
+        }))
+    }
 
     let result = futures::future::join_all(tasks).await;
 
@@ -370,8 +374,9 @@ mod tests {
         let proxies = setup();
         let url = "http://example.com".to_owned();
         let timeout = 5000;
+        let threads = 250;
 
-        let results = check_proxies(proxies, url, timeout, emit_new_log_event).await;
+        let results = check_proxies(proxies, url, timeout, emit_new_log_event, threads).await;
 
         assert_eq!(results.len(), 2);
     }

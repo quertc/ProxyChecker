@@ -6,6 +6,7 @@ interface ProxiesContextProps {
   defaultProtocol: DefaultProtocolOrNull;
   url: string;
   timeout: number;
+  threads: number;
   path: string;
   total: number;
   work: number;
@@ -16,6 +17,7 @@ interface ProxiesContextProps {
   setDefaultProtocol: (defaultProtocol: DefaultProtocol) => void;
   setUrl: (url: string) => void;
   setTimeout: (timeout: number) => void;
+  setThreads: (threads: number) => void;
   setPath: (path: string) => void;
   setTotal: (total: number) => void;
   setWork: React.Dispatch<React.SetStateAction<number>>;
@@ -40,6 +42,7 @@ interface ProxiesSettingsStore {
   defaultProtocol: DefaultProtocol;
   url: string;
   timeout: number;
+  threads: number;
 }
 
 interface ProxiesStateProps {
@@ -51,6 +54,7 @@ export function ProxiesState({ children }: ProxiesStateProps) {
   const [defaultProtocol, setDefaultProtocol] = useState<DefaultProtocolOrNull>(null);
   const [url, setUrl] = useState('');
   const [timeout, setTimeout] = useState(0);
+  const [threads, setThreads] = useState(0);
   const [path, setPath] = useState('');
   const [total, setTotal] = useState(0);
   const [work, setWork] = useState(0);
@@ -69,6 +73,7 @@ export function ProxiesState({ children }: ProxiesStateProps) {
         setDefaultProtocol(settings?.defaultProtocol ?? 'http');
         setUrl(settings?.url ?? 'https://api.ipify.org/');
         setTimeout(settings?.timeout ?? 10000);
+        setThreads(settings?.threads ?? 500);
       })
       .catch(console.error);
   }, []);
@@ -78,6 +83,7 @@ export function ProxiesState({ children }: ProxiesStateProps) {
     defaultProtocol,
     url,
     timeout,
+    threads,
     path,
     total,
     work,
@@ -88,13 +94,14 @@ export function ProxiesState({ children }: ProxiesStateProps) {
     setDefaultProtocol,
     setUrl,
     setTimeout,
+    setThreads,
     setPath,
     setTotal,
     setWork,
     setLogs,
     setIsCheckLoading,
     setIsDownloadLoading,
-  }), [pattern, defaultProtocol, url, timeout, path, total, work, logs, isCheckLoading, isDownloadLoading]);
+  }), [pattern, defaultProtocol, url, timeout, threads, path, total, work, logs, isCheckLoading, isDownloadLoading]);
 
   return (
     <ProxiesContext.Provider value={value}>

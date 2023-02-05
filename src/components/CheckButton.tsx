@@ -4,7 +4,7 @@ import { invoke } from '@tauri-apps/api/tauri';
 import { ProxiesContext } from '../context/ProxiesContext';
 
 function CheckButton() {
-  const { url, timeout, path, total, isCheckLoading, isDownloadLoading, setWork, setLogs, setIsDownloadLoading } = useContext(ProxiesContext);
+  const { url, timeout, threads, path, total, isCheckLoading, isDownloadLoading, setWork, setLogs, setIsDownloadLoading } = useContext(ProxiesContext);
 
   // Move this to the hook (for other components too)
   async function checkProxies() {
@@ -12,7 +12,7 @@ function CheckButton() {
       setIsDownloadLoading(true);
       setWork(0);
       setLogs([]);
-      await invoke('check_proxies_command', { url, timeout });
+      await invoke('check_proxies_command', { url, timeout, threads });
       setIsDownloadLoading(false);
     } catch (e) {
       console.error(e);
