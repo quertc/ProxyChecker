@@ -1,7 +1,6 @@
 mod error;
 
 use error::{ProxyCheckerError, Result};
-use futures::stream::FuturesUnordered;
 use itertools::Itertools;
 use rayon::prelude::*;
 use regex::Regex;
@@ -375,7 +374,7 @@ mod tests {
         let proxies = setup();
         let url = "http://example.com".to_owned();
         let timeout = 5000;
-        let threads = 50;
+        let threads = 250;
 
         let results = check_proxies(proxies, url, timeout, emit_new_log_event, threads).await;
 
