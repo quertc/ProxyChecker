@@ -7,13 +7,13 @@ A lightweight, customizable and user-friendly proxy checker built with [Tauri](h
 ## Features
 
 - Supports any proxy patterns with any separators (e.g. `ip:port`, `ip:port@login:password`, etc.)
-- Customizable settings for proxy pattern (described above), default protocol, request url and timeout
+- Customizable settings for proxy pattern (described above), default protocol, request url, timeout and threads
 - Beautiful logs, saving settings to a file, themes, and more (actually, that's all for now)
 
 ## Usage
 
 1. Select a file containing your proxies
-2. Utilize the settings to change the pattern, default protocol, request url and timeout
+2. Utilize the settings to change the pattern, default protocol, request url, timeout and threads
 3. Check your proxies with ease!
 
 ## Release
