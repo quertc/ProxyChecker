@@ -1,5 +1,7 @@
 # ProxyChecker
 
+![Preview](https://github.com/quertc/ProxyChecker/blob/main/preview.png)
+
 A lightweight, customizable and user-friendly proxy checker built with [Tauri](https://tauri.app/) + [React](https://reactjs.org/) + [TypeScript](https://www.typescriptlang.org/). And just as importantly, you'll find an anime girl in the background, which adds a touch of personality to the app and makes your work less boring.
 
 ## Features
