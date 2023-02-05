@@ -6,6 +6,7 @@ import PatternInput from './PatternInput';
 import DefaultProtocolSelect from './DefaultProtocolSelect';
 import UrlInput from './UrlInput';
 import TimeoutInput from './TimeoutInput';
+import ThreadsInput from './ThreadsInput';
 
 function SettingsModal() {
   const [opened, setOpened] = useState(false);
@@ -43,6 +44,7 @@ function SettingsModal() {
         <DefaultProtocolSelect mt="sm" />
         <UrlInput mt="sm" />
         <TimeoutInput mt="sm" />
+        <ThreadsInput mt="sm" />
         <Button
           disabled={!pattern || !defaultProtocol || !url || !timeout}
           fullWidth
