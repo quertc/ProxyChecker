@@ -244,7 +244,7 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
 name = "checker-library"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "futures",
  "itertools",
@@ -2128,7 +2128,7 @@ dependencies = [
 
 [[package]]
 name = "proxy-checker"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "checker-library",
  "env_logger",
@@ -2984,8 +2984,8 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-store"
-version = "0.1.0"
-source = "git+https://github.com/tauri-apps/plugins-workspace?branch=dev#526f1fcb8518e87e719a45db43614f4dcd8e3065"
+version = "0.0.0"
+source = "git+https://github.com/tauri-apps/plugins-workspace?branch=v1#a32008965b5cf060cc04e1e143dd221ce410715d"
 dependencies = [
  "log",
  "serde",
