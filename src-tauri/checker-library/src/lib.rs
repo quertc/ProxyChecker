@@ -158,7 +158,10 @@ fn build_regex(pattern: &str) -> String {
         .replace("protocol", r"(?P<protocol>\w+)")
         .replace("login", r"(?P<login>[^:@]+)")
         .replace("password", r"(?P<password>[^:@]+)")
-        .replace("ip", r"(?P<ip>(?:\d{1,3}\.){3}\d{1,3})")
+        .replace(
+            "ip",
+            r"(?P<ip>(?:\d{1,3}\.){3}\d{1,3}|(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})",
+        )
         .replace("port", r"(?P<port>\d+)")
 }
 
@@ -264,6 +267,14 @@ mod tests {
             ),
             Proxy::new("http", None, None, "1.1.1.1", "80", "protocol://ip:port"),
             Proxy::new("socks5", None, None, "1.1.1.1", "80", "ip:port"),
+            Proxy::new(
+                "http",
+                Some("test"),
+                Some("test"),
+                "example.com",
+                "80",
+                "ip:port:login:password",
+            ),
         ]
     }
 
@@ -303,6 +314,17 @@ mod tests {
         };
 
         assert_eq!(proxies[2], expected_proxy2);
+
+        let expected_proxy3 = Proxy {
+            protocol: "http".to_owned(),
+            login: Some("test".to_owned()),
+            password: Some("test".to_owned()),
+            ip: "example.com".to_owned(),
+            port: "80".to_owned(),
+            pattern: "ip:port:login:password".to_owned(),
+        };
+
+        assert_eq!(proxies[3], expected_proxy3);
     }
 
     #[test]
@@ -323,6 +345,12 @@ mod tests {
                 proxies[1].clone(),
             ),
             ("ip:port", "1.1.1.1:80", "socks5", proxies[2].clone()),
+            (
+                "ip:port:login:password",
+                "example.com:80:test:test",
+                "http",
+                proxies[3].clone(),
+            ),
         ];
 
         for (pattern, proxy_string, default_protocol, expected_proxy) in test_cases {
@@ -338,6 +366,7 @@ mod tests {
             "http://test:test@1.1.1.1:80",
             "http://1.1.1.1:80",
             "1.1.1.1:80",
+            "example.com:80:test:test",
         ];
 
         for (proxy, expected) in proxies.into_iter().zip(expected.into_iter()) {
@@ -371,7 +400,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_check_proxies() {
-        let proxies = setup();
+        let proxies = setup().into_iter().take(3).collect::<Vec<_>>();
         let url = "http://example.com".to_owned();
         let timeout = 5000;
         let threads = 250;
